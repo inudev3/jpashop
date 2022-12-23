@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class Order {
     @JoinColumn(name="delivery_id")
     private Delivery delivery;
 
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
     @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -58,7 +59,7 @@ public class Order {
             order.addOrderItem(orderItem);
         }
         order.setOrderStatus(OrderStatus.IN_DELIVERY);
-        order.setOrderDate(LocalDate.now());
+        order.setOrderDate(LocalDateTime.now());
         return order;
     }
 
