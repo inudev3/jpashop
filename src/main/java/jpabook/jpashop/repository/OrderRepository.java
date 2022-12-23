@@ -32,11 +32,11 @@ public class OrderRepository {
         Join<Object, Object> m = o.join("member", JoinType.INNER);
         List<jakarta.persistence.criteria.Predicate> criteria = new ArrayList<>();
         if(orderSearch.memberName()!=null){
-            Predicate name = cb.like(m.get("name"), "%"+orderSearch.memberName()+"%");
+            Predicate name = cb.like(m.get("username"), "%"+orderSearch.memberName()+"%");
             criteria.add(name);
         }
         if(orderSearch.status()!=null){
-            Predicate status = cb.equal(o.get("status"), orderSearch.status());
+            Predicate status = cb.equal(o.get("orderStatus"), orderSearch.status());
             criteria.add(status);
         }
         cq.where(cb.and(criteria.toArray(new Predicate[0])));

@@ -6,6 +6,7 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.dto.OrderItemDTO;
+import jpabook.jpashop.dto.OrderSearch;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
@@ -32,7 +33,7 @@ public class OrderService {
         List<OrderItem> orderItemList = new ArrayList<>();
         for (OrderItemDTO orderItemDTO: orderItems ) {
             Item item = itemRepository.findOne(orderItemDTO.itemId());
-            orderItemList.add(OrderItem.createOrderItem(item, orderItemDTO.count(), orderItemDTO.price()));
+            orderItemList.add(OrderItem.createOrderItem(item, orderItemDTO.count(), item.getPrice()));
         }
 
         Delivery delivery = new Delivery();
@@ -52,5 +53,7 @@ public class OrderService {
         cancelOrder.cancel();
     }
     //주문 검색(동적 쿼리)
-
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAll(orderSearch);
+    }
 }

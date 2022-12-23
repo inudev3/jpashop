@@ -1,5 +1,5 @@
 package jpabook.jpashop.dto;
 
-public record OrderItemDTO(int count, Long itemId, int price){
+public record OrderItemDTO(int count, Long itemId){
 
 }
