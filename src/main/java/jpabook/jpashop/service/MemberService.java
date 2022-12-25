@@ -12,6 +12,7 @@ import java.util.List;
 @Transactional
 public class MemberService {
     @Autowired //인젝션 방법 중 하나
+
     private MemberRepository memberRepository;
 
     public Long join(Member member){
@@ -27,7 +28,5 @@ public class MemberService {
     public List<Member> findMembers(){
         return memberRepository.findAll();
     }
-    public Member findOne(){
 
-    }
 }
