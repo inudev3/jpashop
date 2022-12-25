@@ -1,5 +1,7 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class MemberRepositoryTest {
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     @Transactional //javax와 스프링 중 스프링을 쓰면 됨
@@ -22,8 +25,8 @@ class MemberRepositoryTest {
         member.setUsername("hello");
 
         //when
-        Long savedId = memberRepository.saveMember(member);
-        Member findMember = memberRepository.find(savedId); //select 쿼리 안나감
+        memberRepository.save(member);
+        Member findMember = memberRepository.findOne(member.getId()); //select 쿼리 안나감
 
         //then
         assertEquals(findMember.getId(), member.getId());

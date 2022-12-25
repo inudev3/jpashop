@@ -2,19 +2,21 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly=true)
+@RequiredArgsConstructor
 public class MemberService {
-    @Autowired //인젝션 방법 중 하나
 
-    private MemberRepository memberRepository;
+    
+    private final MemberRepository memberRepository;
 
+    @Transactional
     public Long join(Member member){
         validDuplicateMember(member);
         memberRepository.save(member);
@@ -29,4 +31,14 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public Member findOne(Long id){
+        return memberRepository.findOne(id);
+    }
+
+    @Transactional
+    public Long update(Long id, String name) {//Member
+        Member member = memberRepository.findOne(id);
+        member.setUsername(name);
+        return member.getId();
+    }
 }

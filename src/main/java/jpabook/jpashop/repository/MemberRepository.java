@@ -3,16 +3,18 @@ package jpabook.jpashop.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext//jpa 표준 어노테이션, 스프링이 빈 등록
-    private EntityManager em;
+    //jpa 표준 어노테이션인 @PersistenceContext를 사용해야만 인젝션되지만, 스프링 data jpa는 autowired 해줌
+    private final EntityManager em;
 
     public void save(Member member){
         em.persist(member);

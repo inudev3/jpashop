@@ -4,6 +4,8 @@ import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
+import jpabook.jpashop.dto.OrderSearch;
+import jpabook.jpashop.service.OrderService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,9 @@ public class OrderApiController {
     private final OrderService orderService;
 
     @GetMapping("/api/v2/orders")
-    public List<OrderDto> orders(){}
+    public List<OrderDto> orders(){
+        return orderService.findOrders(new OrderSearch()).stream().map(OrderDto::new).collect(Collectors.toList());
+    }
 
     @Getter
     static class OrderDto{
